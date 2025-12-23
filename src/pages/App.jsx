@@ -1,10 +1,14 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 
 function App() {
   return (
     <Router>
+      <nav style={{ textAlign: "center", margin: "20px" }}>
+        <Link to="/register" style={{ marginRight: "10px" }}>Register</Link>
+        <Link to="/login">Login</Link>
+      </nav>
       <Routes>
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
