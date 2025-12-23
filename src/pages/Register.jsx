@@ -2,7 +2,6 @@ import { useState } from "react";
 import { auth, db } from "../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc, serverTimestamp } from "firebase/firestore";
-import "../styles.css"; // import the CSS
 
 export default function Register() {
   const [displayName, setDisplayName] = useState("");
@@ -13,23 +12,19 @@ export default function Register() {
   const handleRegister = async (e) => {
     e.preventDefault();
     setError("");
-
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-
       await setDoc(doc(db, "users", user.uid), {
         displayName,
         createdAt: serverTimestamp(),
       });
-
-      alert("Registration successful! You can now log in.");
+      alert("Registration successful!");
     } catch (err) {
       setError(err.message);
     }
   };
 
-  // THIS is where the return goes
   return (
     <div className="container">
       <h2>Register for Quiet Realm</h2>

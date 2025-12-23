@@ -1,13 +1,12 @@
-/* Blue theme for Quiet Realm */
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background-color: #f0f4ff; /* light blue background */
+  font-family: 'Inter', sans-serif;
+  background-color: #f0f4ff;
 }
 
 h2 {
   text-align: center;
-  color: #1e40af; /* dark blue heading */
+  color: #1e40af;
 }
 
 form {

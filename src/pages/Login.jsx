@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { auth } from "../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import "../styles.css"; // reuse the same CSS
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -11,11 +10,9 @@ export default function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     setError("");
-
     try {
       await signInWithEmailAndPassword(auth, email, password);
       alert("Login successful!");
-      // Optionally redirect to home page
     } catch (err) {
       setError(err.message);
     }
