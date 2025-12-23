@@ -1,8 +1,8 @@
-import "../styles.css";
 import { useState } from "react";
 import { auth, db } from "../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc, serverTimestamp } from "firebase/firestore";
+import "../styles.css"; // import the CSS
 
 export default function Register() {
   const [displayName, setDisplayName] = useState("");
@@ -15,29 +15,25 @@ export default function Register() {
     setError("");
 
     try {
-      // 1️⃣ Create user in Firebase Auth
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
-      // 2️⃣ Add user info to Firestore
       await setDoc(doc(db, "users", user.uid), {
-        displayName: displayName,
+        displayName,
         createdAt: serverTimestamp(),
       });
 
-      // 3️⃣ Optional: redirect later
-      console.log("User registered:", user.uid);
       alert("Registration successful! You can now log in.");
     } catch (err) {
-      console.error(err);
       setError(err.message);
     }
   };
 
+  // THIS is where the return goes
   return (
-    <div style={{ maxWidth: "400px", margin: "50px auto" }}>
+    <div className="container">
       <h2>Register for Quiet Realm</h2>
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {error && <p className="error">{error}</p>}
       <form onSubmit={handleRegister}>
         <input
           type="text"
@@ -45,7 +41,6 @@ export default function Register() {
           value={displayName}
           onChange={(e) => setDisplayName(e.target.value)}
           required
-          style={{ width: "100%", padding: "8px", margin: "8px 0" }}
         />
         <input
           type="email"
@@ -53,7 +48,6 @@ export default function Register() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          style={{ width: "100%", padding: "8px", margin: "8px 0" }}
         />
         <input
           type="password"
@@ -61,14 +55,8 @@ export default function Register() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
-          style={{ width: "100%", padding: "8px", margin: "8px 0" }}
         />
-        <button
-          type="submit"
-          style={{ width: "100%", padding: "10px", backgroundColor: "#3b82f6", color: "white", border: "none", cursor: "pointer" }}
-        >
-          Register
-        </button>
+        <button type="submit">Register</button>
       </form>
     </div>
   );
